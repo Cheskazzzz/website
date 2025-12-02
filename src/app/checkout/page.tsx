@@ -39,7 +39,7 @@ export default function CheckoutPage() {
           </p>
 
           <p className="text-lg text-[#7d6b60] mb-8">
-            We're preparing your adorable Chiikawa plushies for shipment. You'll receive a tracking number via email soon.
+            We&apos;re preparing your adorable Chiikawa plushies for shipment. You&apos;ll receive a tracking number via email soon.
           </p>
 
           {/* Fun Message */}

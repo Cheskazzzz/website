@@ -6,7 +6,16 @@ import { AspectRatio } from "~/components/ui/aspect-ratio";
 import { Separator } from "~/components/ui/separator";
 import { Footer } from "~/components/footer";
 
-const plushies = [
+type CartItem = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image?: string;
+  qty?: number;
+};
+
+const plushies: CartItem[] = [
   {
     id: 1,
     name: "Chiikawa Plush",
@@ -17,7 +26,7 @@ const plushies = [
   {
     id: 2,
     name: "Hachiware Plush",
-    description: "Chiikawa's best friend, always ready for adventure.",
+      description: "Chiikawa\u2019s best friend, always ready for adventure.",
     price: 1449,
     image: "/hachiware_plush.png",
   },
@@ -38,7 +47,7 @@ const plushies = [
   {
     id: 5,
     name: "Kuri Manju Plush",
-    description: "A sweet and squishy character plush perfect for collectors.",
+      description: "A sweet and squishy character plush perfect for collectors.",
     price: 1599,
     image: "/kurimanju_plush.png",
   },
@@ -53,16 +62,16 @@ const plushies = [
 
 export default function PlushiesPage() {
   // addToCart writes products to localStorage under the key 'cart'
-  const addToCart = (product: { id: number; name: string; price: number; image?: string }) => {
+  const addToCart = (product: Pick<CartItem, "id" | "name" | "price" | "image"> & { description?: string }) => {
     try {
       const raw = localStorage.getItem("cart");
-      const cart = raw ? JSON.parse(raw) as Array<any> : [];
+      const cart: CartItem[] = raw ? (JSON.parse(raw) as CartItem[]) : [];
 
-      const existing = cart.find((p: any) => p.id === product.id);
+      const existing = cart.find((p) => p.id === product.id);
       if (existing) {
-        existing.qty = (existing.qty || 1) + 1;
+        existing.qty = (existing.qty ?? 1) + 1;
       } else {
-        cart.push({ ...product, qty: 1 });
+        cart.push({ id: product.id, name: product.name, description: product.description ?? "", price: product.price, image: product.image, qty: 1 });
       }
 
       localStorage.setItem("cart", JSON.stringify(cart));

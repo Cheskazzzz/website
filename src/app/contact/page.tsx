@@ -22,7 +22,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission here
-    alert("Thank you for your message! We'll get back to you soon.");
+    alert("Thank you for your message! We\u2019ll get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
   };
 
